@@ -88,8 +88,6 @@ int named_pipe_create(const char *fname) {
     // create file
     struct fs_dirent *file = createfile(fname);
 
-    // struct pipe *p = kmalloc(sizeof(*p));
-	// if(!p) return 0;
     struct named_pipe *np = kmalloc(sizeof(*np));
     if(!np) return -1;
 

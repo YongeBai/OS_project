@@ -6,16 +6,15 @@
 int main() {
     printf("start receiver.\n");
     syscall_process_sleep(10);
-    const char *fname = "bin/named_pipe";
+    const char *fname = "named_pipe";
 
     int fd = syscall_open_named_pipe(fname);
     printf("receiver: syscall_open_named_pipe:%d\n",fd);
     if(fd >= 0){
-        printf("Named pipe open.\n");
-
         char received_message[20];
         int r;
 
+        // reading message from named pipe if available or yield
         while((r = syscall_object_read(fd, received_message, 20, -1))==0) {
             syscall_process_yield();
         }

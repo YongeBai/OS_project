@@ -8,13 +8,8 @@ int create_process(const char *exec, int priority)
 
     if (pfd >= 0)
     {
-        // const char *args[] = {exec, NULL};
         int pid = syscall_process_prun(pfd, 0, &exec, priority);
-        if (pid > 0)
-        {
-            // printf("STARTED pid: %d\n", pid);
-            printf("created %s with priority %d\n", exec, priority);
-        }
+        if (pid > 0);
         else
         {
             printf("couldn't run %s: %s\n", exec, strerror(pid));
@@ -30,19 +25,15 @@ int create_process(const char *exec, int priority)
 
 int main(int argc, char const *argv[])
 {
-    // number of processes
     int n = 2;
 
-    // change add processes here
-    //const char *procs[] = {"bin/process1.exe", "bin/process2.exe", "bin/process3.exe", "bin/process4.exe", "bin/process5.exe"};
-    const char *procs[] = {"bin/receiver.exe","bin/sender.exe" };
+    const char *processes[] = {"bin/receiver.exe","bin/sender.exe" };
 
-    // change add/change priorities here
-    int priorities[] = {1, 5};
-
+    int priorities[] = {0, 1};
+    // creating receiver and sender processes
     for (int i = 0; i < n; i++)
     {
-        create_process(procs[i], priorities[i]);
+        create_process(processes[i], priorities[i]);
     }
     syscall_run_all();
     return 0;
