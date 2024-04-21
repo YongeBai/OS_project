@@ -562,6 +562,7 @@ int sys_object_remove(int fd, const char *name)
 		return KERROR_INVALID_OBJECT;
 	if (!is_valid_path(name))
 		return KERROR_INVALID_PATH;
+	printf("sys_object_remove: %s\n", name);
 	return kobject_remove(current->ktable[fd], name);
 }
 

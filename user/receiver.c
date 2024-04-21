@@ -28,12 +28,13 @@ int main() {
 
         syscall_object_close(fd); 
         printf("receiver finish.\n");
+        syscall_object_remove(fd, fname);
         }
 
     else {
         printf("%d: Error opening named pipe.\n", syscall_process_self());
         return 1;
     }
-
+    syscall_object_remove(fd, fname);
   return 1;
 }

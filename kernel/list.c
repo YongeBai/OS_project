@@ -7,6 +7,14 @@ See the file LICENSE for details.
 #include "list.h"
 #include "process.h"
 
+void print_list(struct list *list)
+{
+	struct list_node *n;
+	for (n = list->head; n; n = n->next)
+	{
+		printf("Node: %p\n", n);
+	}
+}
 
 void list_push_head(struct list *list, struct list_node *node)
 {
@@ -27,7 +35,7 @@ void list_push_head_priority(struct list *list, struct list_node *node, int pri)
 	node->next = list->head;
 	node->prev = 0;
 	node->priority = pri;
-	;
+	
 	if (list->head)
 		list->head->prev = node;
 	list->head = node;
@@ -51,6 +59,19 @@ void list_push_tail(struct list *list, struct list_node *node)
 	list->size++;
 }
 
+void list_push_tail_priority(struct list *list, struct list_node *node, int pri)
+{
+	node->prev = list->tail;
+	node->next = 0;
+	node->priority = pri;
+	if (list->tail)
+		list->tail->next = node;
+	list->tail = node;
+	if (!list->head)
+		list->head = node;
+	node->list = list;
+	list->size++;
+}
 
 void list_push_priority(struct list *list, struct list_node *node, int pri)
 {
@@ -84,7 +105,8 @@ void list_push_priority(struct list *list, struct list_node *node, int pri)
 		}
 		i++;
 	}
-	list_push_tail(list, node);
+
+	list_push_tail_priority(list, node, pri);
 }
 
 struct list_node *list_pop_head(struct list *list)
